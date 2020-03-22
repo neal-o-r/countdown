@@ -17,7 +17,7 @@ def letters_round() -> (int, int):
 
     print("Letters Round")
     vows = int(input("How many vowels?\n"))
-    cons = int(input("How many consonant?\n"))
+    cons = int(input("How many consonants?\n"))
 
     letts = letters.get_letters(cons, vows)
     print("Your Letters Are:\n")
