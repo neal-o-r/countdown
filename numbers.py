@@ -39,11 +39,11 @@ def eqn_nums(nums: Numbers) -> Equations:
     ops = combinations_with_replacement("+-/*", len(nums) - 1)
     op_perms = mapcat(permutations, ops)
     # all number permutations, compute these now (not a gen)
-    # and take the set, this can save an order of mag of redundant eqns
+    # and take the set, this will save on redundant eqns
     num_perms = set(permutations(nums))
 
     eqns = product(num_perms, op_perms)
-    return (tuple(list(p) + list(o)) for p, o in eqns)
+    return (list(p) + list(o) for p, o in eqns)
 
 
 def all_eqn(nums: Numbers) -> Equations:

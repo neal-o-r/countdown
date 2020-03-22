@@ -62,25 +62,15 @@ def best_words(letters: Letters, n: int = 5) -> Words:
     return sorted(sum(poss, []), key=len, reverse=True)[:n]
 
 
-def conundrums():
+def conundrums() -> Generator[Word, None, None]:
+
     uniq9s = {k: v for k, v in WORD_MAP.items() if len(v) is 1 and len(k) is 9}
 
-    fours = (w for w in WORDS if len(w) is 4)
-    fives = (w for w in WORDS if len(w) is 5)
+    shuffled = lambda x: sorted(x, key=lambda _: rd.random())
+    fours = shuffled(w for w in WORDS if len(w) is 4)
+    fives = shuffled(w for w in WORDS if len(w) is 5)
 
     for fr, fv in product(fours, fives):
         k = join(sorted(fr + fv))
         if k in uniq9s:
             yield fr, fv, uniq9s[k][0]
-
-
-def pick_conundrum() -> Words:
-
-    rand = rd.randrange(0, 1e6)
-    cons = conundrums()
-    for i in range(rand):
-        _ = next(cons)
-
-    return next(cons)
-
-
