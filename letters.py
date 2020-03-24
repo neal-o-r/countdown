@@ -16,7 +16,7 @@ CONSONANTS = {k: v for k, v in ALPHABET.items() if k not in VOWELS}
 
 join = lambda x: "".join(x)
 
-with open("enable1.txt") as f:
+with open("data/enable1.txt") as f:
     WORDS = [w for w in f.read().split() if len(w) <= 9]
 
 

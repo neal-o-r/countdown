@@ -1,15 +1,14 @@
 import numbers
 import letters
 import time
+import subprocess
 import os
 
 
-def countdown(t: int = 30):
-    print()
-    for i in range(t):
-        time.sleep(1)
-        if not(i % 5):
-            print(i)
+def countdown():
+    cmd = ["mpg123", "data/Countdown.mp3"]
+    with open(os.devnull, 'wb') as devnull:
+        subprocess.check_call(cmd, stdout=devnull, stderr=subprocess.STDOUT)
     print("TIME'S UP\n")
 
 
@@ -21,7 +20,7 @@ def letters_round() -> (int, int):
 
     letts = letters.get_letters(cons, vows)
     print("Your Letters Are:\n")
-    print(" ".join(letts))
+    print(" ".join(letts.upper()))
 
     countdown()
 
