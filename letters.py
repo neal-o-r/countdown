@@ -14,15 +14,18 @@ Words = List[Word]
 VOWELS = {k: v for k, v in ALPHABET.items() if k in "aeiou"}
 CONSONANTS = {k: v for k, v in ALPHABET.items() if k not in VOWELS}
 
-join = lambda x: "".join(x)
+join = "".join
+def key(x): return join(sorted(x))
+def shuffled(x): return sorted(x, key=lambda _: rd.random())
+
 
 with open("data/enable1.txt") as f:
-    WORDS = [w for w in f.read().split() if len(w) <= 9]
+    WORDS = (w for w in f.read().split() if len(w) < 10)
 
 
 WORD_MAP = defaultdict(list)
 for w in WORDS:
-    WORD_MAP[join(sorted(w))] += [w]
+    WORD_MAP[key(w)] += [w]
 
 
 def get_letters(n_cons: int, n_vows: int) -> Letters:
@@ -31,13 +34,8 @@ def get_letters(n_cons: int, n_vows: int) -> Letters:
     return join(sorted(v + c, key=lambda _: rd.random()))
 
 
-def set_from_letters(letters: Letters) -> Set[Word]:
-    s = set()
-    for i in range(4, 9):
-        for l in combinations(letters, i):
-            s.add(join(sorted(l)))
-
-    return s
+def lettersets(letters: Letters) -> Set[Word]:
+    return {key(l) for i in range(4, 9) for l in combinations(letters, i)}
 
 
 def letter_match(word: Word, letters: Letters) -> bool:
@@ -58,15 +56,13 @@ def word_score(word: Word, letters: Letters) -> int:
 
 
 def best_words(letters: Letters, n: int = 5) -> Words:
-    poss = [WORD_MAP[s] for s in set_from_letters(letters) if s in WORD_MAP]
+    poss = [WORD_MAP[s] for s in lettersets(letters) if s in WORD_MAP]
     return sorted(sum(poss, []), key=len, reverse=True)[:n]
 
 
 def conundrums() -> Generator[Word, None, None]:
 
     uniq9s = {k: v for k, v in WORD_MAP.items() if len(v) is 1 and len(k) is 9}
-
-    shuffled = lambda x: sorted(x, key=lambda _: rd.random())
     fours = shuffled(w for w in WORDS if len(w) is 4)
     fives = shuffled(w for w in WORDS if len(w) is 5)
 
