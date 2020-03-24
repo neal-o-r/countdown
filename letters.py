@@ -43,7 +43,7 @@ def set_from_letters(letters: Letters) -> Set[Word]:
 def letter_match(word: Word, letters: Letters) -> bool:
     c = Counter(letters)
     c.subtract(word)
-    return all(v >= 0 for v in c.values()) and all(w in letters for w in word)
+    return all(v >= 0 for v in c.values())
 
 
 def word_score(word: Word, letters: Letters) -> int:

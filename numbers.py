@@ -60,4 +60,4 @@ def is_solution(nums: Numbers, t: target) -> bool:
 
 
 def solution(nums: Numbers, t: target) -> Numbers:
-    return next(filter(lambda x: is_solution(x, t), all_eqn(nums)))
+    return next(filter(lambda x: is_solution(x, t), all_eqn(nums)), [''])

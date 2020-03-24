@@ -12,6 +12,8 @@ class NotValidEqnError(BaseException):
 
 
 def rpn(expr: Expression) -> int:
+    # Interestingly this is ~10x faster than writing the
+    # eqn in infix and eval-ing it
     stack = []
     for s in expr:
         if s in ops:
@@ -22,7 +24,7 @@ def rpn(expr: Expression) -> int:
         else:
             stack.append(s)
     if len(stack) > 1: raise NotValidEqnError
-    return int(stack[0])
+    return stack[0]
 
 
 def to_infix(expr: Expression) -> str:
