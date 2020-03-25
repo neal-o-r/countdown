@@ -20,7 +20,7 @@ def shuffled(x): return sorted(x, key=lambda _: rd.random())
 
 
 with open("data/enable1.txt") as f:
-    WORDS = (w for w in f.read().split() if len(w) < 10)
+    WORDS = [w for w in f.read().split() if len(w) < 10]
 
 
 WORD_MAP = defaultdict(list)
