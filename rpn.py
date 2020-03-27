@@ -11,6 +11,10 @@ class NotValidEqnError(BaseException):
     pass
 
 
+def is_natural(x):
+    return (x > 0) and (x % 1 == 0)
+
+
 def rpn(expr: Expression) -> int:
     # Interestingly this is ~10x faster than writing the
     # eqn in infix and eval-ing it
@@ -18,7 +22,10 @@ def rpn(expr: Expression) -> int:
     for s in expr:
         if s in ops:
             try:
-                stack.append(ops[s](stack.pop(), stack.pop()))
+                n = ops[s](stack.pop(), stack.pop())
+                # no non-naturals
+                if not is_natural(n): return None
+                stack.append(n)
             except:
                 raise NotValidEqnError
         else:
