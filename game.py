@@ -1,4 +1,4 @@
-import numbers
+import number
 import letters
 import time
 import subprocess
@@ -46,8 +46,8 @@ def numbers_round() -> (int, int):
     sml = int(input("How many small?\n"))
     lrg = int(input("How many large?\n"))
 
-    nums = numbers.get_numbers(sml, lrg)
-    target = numbers.target()
+    nums = number.get_numbers(sml, lrg)
+    target = number.target()
 
     print(f"The numbers are: {'-'.join(map(str, nums))}")
     print(f"The target is: {target}\n")
@@ -56,17 +56,17 @@ def numbers_round() -> (int, int):
 
     eqn1 = eval(input("Player 1 type your calculation or number:\n"))
     print(f"This is: {eqn1}")
-    score1 = numbers.number_score(target, eqn1)
+    score1 = number.number_score(target, eqn1)
     print(f"You score: {score1}")
 
     eqn2 = eval(input("Player 2 type your calculation or number:\n"))
     print(f"This is: {eqn2}")
-    score2 = numbers.number_score(target, eqn2)
+    score2 = number.number_score(target, eqn2)
     print(f"You score: {score2}")
 
 
-    solution = numbers.solution(nums, target)
-    print(f"\nSolution: {numbers.to_infix(solution)}\n")
+    solution = number.solution(nums, target)
+    print(f"\nSolution: {number.to_infix(solution)}\n")
     time.sleep(2)
 
     return score1, score2
@@ -84,9 +84,17 @@ def play_round(score1: int, score2: int, lett: bool = True) -> (int, int):
     print_scores(score1, score2)
     return score1, score2
 
+
 def print_scores(sc1, sc2):
     os.system('clear')
     print(f"PLAYER 1 SCORE: {sc1} --- PLAYER 2 SCORE: {sc2}\n")
+
+
+def play_section(score1: int, score2: int) -> (int, int):
+    score1, score2 = play_round(score1, score2)
+    score1, score2 = play_round(score1, score2)
+    score1, score2 = play_round(score1, score2, lett=False)
+    return score1, score2
 
 
 if __name__ == "__main__":
@@ -95,10 +103,6 @@ if __name__ == "__main__":
 
     score1, score2 = 0, 0
 
-    score1, score2 = play_round(score1, score2)
-    score1, score2 = play_round(score1, score2)
-    score1, score2 = play_round(score1, score2, lett=False)
-
-    score1, score2 = play_round(score1, score2)
-    score1, score2 = play_round(score1, score2)
-    score1, score2 = play_round(score1, score2, lett=False)
+    score1, score2 = play_section(score1, score2)
+    score1, score2 = play_section(score1, score2)
+    score1, score2 = play_section(score1, score2)
