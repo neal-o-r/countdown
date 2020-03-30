@@ -31,7 +31,7 @@ for w in WORDS:
 def get_letters(n_cons: int, n_vows: int) -> Letters:
     v = rd.choices(list(VOWELS), weights=VOWELS.values(), k=n_vows)
     c = rd.choices(list(CONSONANTS), weights=CONSONANTS.values(), k=n_cons)
-    return join(sorted(v + c, key=lambda _: rd.random()))
+    return join(shuffled(v + c))
 
 
 def lettersets(letters: Letters) -> Set[Word]:
