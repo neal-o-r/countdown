@@ -38,7 +38,7 @@ def letters_round(n_players: int):
     print(" - ".join(best))
     time.sleep(2)
 
-    return scores
+    return set_scores(scores)
 
 
 def numbers_round(n_players: int) -> list:
@@ -69,7 +69,11 @@ def numbers_round(n_players: int) -> list:
     print(f"\nSolution: {number.to_infix(solution)}\n")
     time.sleep(2)
 
-    return scores
+    return set_scores(scores)
+
+
+def set_scores(scores:list) -> list:
+    return [s if s == max(scores) else 0 for s in scores]
 
 
 def add_scores(a: list, b: list) -> list:
