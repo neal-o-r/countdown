@@ -52,12 +52,12 @@ def all_eqn(nums: Numbers) -> Equations:
             yield from eqn_nums(n)
 
 
-def is_solution(nums: Numbers, t: target) -> bool:
+def is_solution(nums: Numbers, t: Target) -> bool:
     try:
         return calc(nums) == t
     except NotValidEqnError:
         return False
 
 
-def solution(nums: Numbers, t: target) -> Numbers:
+def solution(nums: Numbers, t: Target) -> Numbers:
     return next(filter(lambda x: is_solution(x, t), all_eqn(nums)), [''])
